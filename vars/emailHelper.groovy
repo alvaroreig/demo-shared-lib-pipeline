@@ -14,6 +14,7 @@ def call(body) {
             def from="'Mailgun Helper Jenkins <jenkins@${config.domainName}>'"
 
             println "sending email to ${config.mailTo}"
+            println env.mailgunDomainName
             sh "curl -s --user $user $url -F from=$from -F to=${config.mailTo} -F subject='${config.mailSubject}' -F text='${config.mailText}'"
         } catch (err) {
             currentBuild.result = 'FAILED'
