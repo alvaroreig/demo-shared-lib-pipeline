@@ -7,11 +7,17 @@ def call(body) {
 
     node {
         // Clean workspace before doing anything
-        deleteDir()
+        //deleteDir()
 
         try {
+
+            def user="api:${config.apiKey}"
+            def url="https://api.mailgun.net/v3/${config.domainName}/messages"
+            def from="Excited User <mailgun@${config.domainName}>"
+            def subject="Hello"
+
             println "sending email to ${config.mailTo}"
-            sh "curl -s --user 'api:${config.apiKey}' https://api.mailgun.net/v3/${config.domainName}/messages -F from='Excited User <mailgun@${config.domainName}>' -F to=${config.mailTo} -F subject='Hello' -F text='Testing some Mailgun awesomness!'"
+            sh "curl -s --user $user $url -F from=$from -F to=${config.mailTo} -F subject=$subject -F text=${config.mailText}"
         } catch (err) {
             currentBuild.result = 'FAILED'
             throw err
