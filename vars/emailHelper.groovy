@@ -10,7 +10,7 @@ def call(body) {
         deleteDir()
 
         try {
-            sh "echo 'deploying to server ${config.serverDomain}...'"
+            println "sending email to ${config.mailTo}"
         } catch (err) {
             currentBuild.result = 'FAILED'
             throw err
