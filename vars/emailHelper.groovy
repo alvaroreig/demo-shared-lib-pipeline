@@ -9,12 +9,15 @@ def call(body) {
 
         try {
 
-            def user="api:${config.apiKey}"
-            def url="https://api.mailgun.net/v3/${config.domainName}/messages"
-            def from="'Mailgun Helper Jenkins <jenkins@${config.domainName}>'"
+            /*
+                This library requires mailgunDomainName and mailgunApiKey
+                configured as Global properties in Jenkins
+            */
+            def user="api:${env.mailgunApiKey}"
+            def url="https://api.mailgun.net/v3/${env.mailgunDomainName}/messages"
+            def from="'Mailgun Helper Jenkins <jenkins@${env.mailgunDomainName}>'"
 
             println "sending email to ${config.mailTo}"
-            println env.mailgunDomainName
             sh "curl -s --user $user $url -F from=$from -F to=${config.mailTo} -F subject='${config.mailSubject}' -F text='${config.mailText}'"
         } catch (err) {
             currentBuild.result = 'FAILED'
