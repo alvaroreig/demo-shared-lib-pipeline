@@ -13,7 +13,7 @@ def call(body) {
 
             def user="api:${config.apiKey}"
             def url="https://api.mailgun.net/v3/${config.domainName}/messages"
-            def from="Excited User <mailgun@${config.domainName}>"
+            def from="'Excited User <mailgun@${config.domainName}>'"
             def subject="Hello"
 
             println "sending email to ${config.mailTo}"
