@@ -16,7 +16,7 @@ def call(body) {
             def from="'Excited User <mailgun@${config.domainName}>'"
 
             println "sending email to ${config.mailTo}"
-            sh "curl -s --user $user $url -F from=$from -F to=${config.mailTo} -F subject='${config.subject}' -F text='${config.mailText}'"
+            sh "curl -s --user $user $url -F from=$from -F to=${config.mailTo} -F subject='${config.mailSubject}' -F text='${config.mailText}'"
         } catch (err) {
             currentBuild.result = 'FAILED'
             throw err
